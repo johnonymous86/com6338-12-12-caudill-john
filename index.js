@@ -25,7 +25,27 @@ const words = [
   }
 
   // implement the guessLetter method:
-
+  guessLetter(letter) {
+    if (this.word.includes(letter)) {
+      if (!this.correctLetters.includes(letter)) {
+        this.correctLetters.push(letter);
+        let newDisplayWord = '';
+        for (let i = 0; i < this.word.length; i++) {
+          if (this.correctLetters.includes(this.word[i])) {
+            newDisplayWord += this.word[i];
+          } else {
+            newDisplayWord += '_';
+          }
+        }
+        this.displayWord = newDisplayWord;
+      }
+    } else {
+      if (!this.incorrectLetters.includes(letter)) {
+        this.remainingGuesses--;
+        this.incorrectLetters.push(letter);
+      }
+    }
+  }
   // implement the updateScreen method:
   updateScreen() {
     document.getElementById('word-to-guess').textContent = this.displayWord;
@@ -84,4 +104,4 @@ document.onkeyup = function(e) {
     }
     newGame()
   }}
-  newGame()
+  newGame();
